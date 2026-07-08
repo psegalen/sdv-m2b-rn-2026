@@ -1,25 +1,22 @@
 import TodoCard from "@/components/TodoCard";
+import { TodoContext } from "@/data/TodoContext";
+import { useContext } from "react";
 import { Platform, ScrollView, StyleSheet } from "react-native";
 
-const todos = [
-  { done: true, title: "Apprendre TypeScript" },
-  { done: true, title: "Apprendre React" },
-  { done: false, title: "Apprendre React Native" },
-  { done: true, title: "Apprendre l'Anglais" },
-  { done: false, title: "Apprendre le Japonais" },
-  { done: false, title: "Apprendre React Native" },
-  { done: true, title: "Apprendre l'Anglais" },
-  { done: false, title: "Apprendre le Japonais" },
-];
-
 export default function TodoList() {
+  const { todos } = useContext(TodoContext);
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.containerRoot}
     >
       {todos.map((todo, index) => (
-        <TodoCard key={index} done={todo.done} title={todo.title} />
+        <TodoCard
+          key={index}
+          id={todo.id}
+          done={todo.done}
+          title={todo.title}
+        />
       ))}
     </ScrollView>
   );
