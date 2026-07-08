@@ -1,10 +1,10 @@
 import {
-    Button,
-    StyleSheet,
-    Switch,
-    Text,
-    TextInput,
-    View,
+  Button,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { Card } from "react-native-paper";
 
@@ -13,7 +13,6 @@ const UpdateTodo = () => {
     <View style={styles.container}>
       <Card style={styles.card}>
         <View style={styles.cardContainer}>
-          <Text style={styles.title}>Nouvelle Todo</Text>
           <TextInput placeholder="Tâche à faire" style={styles.input} />
           <View style={styles.row}>
             <Switch value={false} />
@@ -43,11 +42,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 16,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
   },
   input: {
     borderWidth: 1,
