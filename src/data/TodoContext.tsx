@@ -1,4 +1,5 @@
 import * as Crypto from "expo-crypto";
+import * as SecureStore from "expo-secure-store";
 import { createContext, PropsWithChildren, useState } from "react";
 
 interface Todo {
@@ -31,22 +32,29 @@ export const TodoContext = createContext<TodoContextProps>({
 });
 
 export const TodoProvider = ({ children }: PropsWithChildren) => {
-  const [todos, setTodos] = useState<Todo[]>(todosMock);
+  const persistedTodos = SecureStore.getItem("EXPO_TODOS_LIST");
+  const [todos, setTodos] = useState<Todo[]>(
+    persistedTodos === null ? todosMock : JSON.parse(persistedTodos),
+  );
+
+  const persistTodos = (newTodos: Todo[]) => {
+    SecureStore.setItem("EXPO_TODOS_LIST", JSON.stringify(newTodos));
+    setTodos(newTodos);
+  };
 
   const addTodo = (title: string) => {
     const newTodo: Todo = { id: Crypto.randomUUID(), title, done: false };
-    console.log(newTodo);
-    setTodos([newTodo, ...todos]);
+    persistTodos([newTodo, ...todos]);
   };
 
   const updateTodo = (updatedTodo: Todo) => {
-    setTodos(
+    persistTodos(
       todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)),
     );
   };
 
   const deleteTodo = (id: string) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    persistTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
