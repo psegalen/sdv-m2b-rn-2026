@@ -17,6 +17,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="map"
+        options={{
+          title: "Carte",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="map" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profil",
