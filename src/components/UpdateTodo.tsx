@@ -10,7 +10,7 @@ interface UpdateTodoProps {
 
 const UpdateTodo = ({ id }: UpdateTodoProps) => {
   const isCreateMode = typeof id === "undefined";
-  const { todos, addTodo, updateTodo } = useContext(TodoContext);
+  const { todos, addTodo, updateTodo, deleteTodo } = useContext(TodoContext);
   const initialTodo = isCreateMode
     ? null
     : todos.find((todo) => todo.id === id);
@@ -45,6 +45,16 @@ const UpdateTodo = ({ id }: UpdateTodoProps) => {
           >
             {isCreateMode ? "Créer" : "Mettre à jour"}
           </Button>
+          {isCreateMode ? undefined : (
+            <Button
+              onPress={() => {
+                deleteTodo(id!);
+                router.back();
+              }}
+            >
+              Supprimer
+            </Button>
+          )}
         </View>
       </Card>
     </View>

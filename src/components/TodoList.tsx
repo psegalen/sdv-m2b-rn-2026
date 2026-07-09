@@ -1,23 +1,32 @@
 import TodoCard from "@/components/TodoCard";
 import { TodoContext } from "@/data/TodoContext";
 import { useContext } from "react";
-import { Platform, ScrollView, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 
 export default function TodoList() {
-  const { todos } = useContext(TodoContext);
+  const { todos, isLoading } = useContext(TodoContext);
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.containerRoot}
     >
-      {todos.map((todo, index) => (
-        <TodoCard
-          key={index}
-          id={todo.id}
-          done={todo.done}
-          title={todo.title}
-        />
-      ))}
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        todos.map((todo, index) => (
+          <TodoCard
+            key={index}
+            id={todo.id}
+            done={todo.done}
+            title={todo.title}
+          />
+        ))
+      )}
     </ScrollView>
   );
 }
